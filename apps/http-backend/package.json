@@ -18,11 +18,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/db": "workspace:*",
     "@types/jsonwebtoken": "^9.0.7",
     "esbuild": "^0.24.2",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "zod": "^3.24.1",
-    "@repo/db": "workspace:*"
+    "slugify": "^1.6.6",
+    "zod": "^3.24.1"
   }
 }

@@ -1,31 +1,31 @@
-import express  from "express";
+import express from "express";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from '@repo/backend-common/config';
 import { middleware } from "./middleware";
-import { z } from "zod"
 import { prismaClient } from "@repo/db/client";
-import { JWT_SECRET } from "@repo/backend-common/config";
+import { z } from "zod";
+
 
 const app = express();
 app.use(express.json());
 
-const CreateUserScheam = z.object({
-    username:z.string().min(3).max(20),
+const CreateUserSchema = z.object({
+    username: z.string().min(3).max(20),
     password: z.string(),
     name: z.string()
 })
 
 const SigninSchema = z.object({
     username: z.string().min(3).max(20),
-    password: z.string()
+    password: z.string(),
 })
 
 const CreateRoomSchema = z.object({
     name: z.string().min(3).max(20),
 })
-
 app.post("/signup", async (req, res) => {
 
-    const parsedData = CreateUserScheam.safeParse(req.body);
+    const parsedData = CreateUserSchema.safeParse(req.body);
     if (!parsedData.success) {
         console.log(parsedData.error);
         res.json({
@@ -113,5 +113,9 @@ app.post("/room", middleware, async (req, res) => {
         })
     }
 })
+
+
+
+
 
 app.listen(2000);
